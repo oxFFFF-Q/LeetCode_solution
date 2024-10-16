@@ -1,0 +1,42 @@
+# 忽略 .vscode 文件夹
+.vscode/
+
+# 忽略 Python 缓存文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# 忽略虚拟环境文件夹
+venv/
+env/
+ENV/
+
+# 忽略 Python 日志文件
+*.log
+
+# 忽略 C++ 编译生成的中间文件
+*.o
+*.obj
+*.so
+*.exe
+*.dll
+*.out
+
+# 忽略 CMake 生成的构建文件
+CMakeFiles/
+CMakeCache.txt
+Makefile
+build/
+
+# 忽略 IDE/编辑器生成的文件
+.idea/
+*.sln
+*.user
+*.VC.db
+*.vscode/
+
+# 忽略其他系统或编辑器生成的文件
+.DS_Store
+Thumbs.db
