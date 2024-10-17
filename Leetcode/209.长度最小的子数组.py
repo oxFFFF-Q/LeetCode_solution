@@ -8,28 +8,38 @@
 # @lc code=start
 class Solution:
     def minSubArrayLen1(self, target: int, nums: List[int]) -> int:
-        left, right = 0, 0
+        # 暴力法
+        lengeth = len(nums)
+        result = float("inf")
+        for i in range(lengeth):
+            sum = 0
+            for j in range(i, lengeth):
+                sum += nums[j]
+                if sum >= target:
+                    result = min(result,j-i+1)
+                    break
+        return 0 if result == float("inf") else result
+    
+    def minSubArrayLen2(self, target: int, nums: List[int]) -> int:
+        # 滑动窗口
+        right, left = 0, 0
         sum = 0
-        res = float("inf")  # 初始化为正无穷
+        result = float("inf")
         for right in range(len(nums)):
-            # 右指针右移，左指针不动，直到满足条件
             sum += nums[right]
-            while sum >= target:
-                # 比较当前子数组长度和之前的最小长度并更新
-                res = min(res, right - left + 1)
-                # 左指针右移，右指针不动，直到不满足条件
-                sum -= nums[left]
-                left += 1
-        return 0 if res == float("inf") else res
-
+            while sum >= target:      # 当满足条件时
+                result = min(result, right - left + 1)   # 更新结果   
+                sum -= nums[left]                        # 去除左边元素
+                left += 1                                # 左指针右移
+        return 0 if sum==float("inf") else result
+    
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        return self.minSubArrayLen2(target, nums)
 
 # @lc code=end
 
-# 总结：滑动窗口
-# 核心还是双指针算法，两个指针构成一个窗口，在数组上滑动，通过移动左右指针来寻找符合条件的子数组。
-# 重点是在数组中遍历移动终止位置时，如何移动起始位置，以及如何更新结果。
-# 移动终止位置是一步操作，移动起始位置是一步操作，所以最多移动2n次。相当于只遍历了一次数组。
-# 暴力法需要对于起始位置和终止位置各遍历一次，所以时间复杂度是O(n^2)。
-
-# 复杂度分析
-# 时间复杂度：O(n)，其中 n 是数组的长度。指针 left 和 right 最多各移动 n 次。
+'''
+209.滑动窗口
+	通过左右两个边界圈定一个窗口，右边界从左到右遍历数组，同时判断窗口内元素是否满足条件，如果满足则保存并比较窗口内元素，并且左边界右移一位，右边界继续遍历
+    暴力法需要嵌套两层循环O(n^2), 滑动窗口仅需要一遍遍历O(n)
+'''
